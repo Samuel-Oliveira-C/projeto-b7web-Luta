@@ -88,4 +88,5 @@ class Stage{
 
         this.update()
     }
+    
 }
