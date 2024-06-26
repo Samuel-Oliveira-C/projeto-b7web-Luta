@@ -74,19 +74,45 @@ class Stage{
     }
 
     update(){
-        this.fighter1El.querySelector(".name").innerHTML = `${this.fighter1.name} - ${this.fighter1.life} HP`;
+        this.fighter1El.querySelector(".name").innerHTML = `${this.fighter1.name} - ${this.fighter1.life.toFixed(1)} HP`;
         let f1Pct = (this.fighter1.life / this.fighter1.maxLife) * 100;
         this.fighter1El.querySelector(".bar").style.width = `${f1Pct}%`;
         
-        this.fighter2El.querySelector(".name").innerHTML = `${this.fighter2.name} - ${this.fighter2.life} HP`;
+        this.fighter2El.querySelector(".name").innerHTML = `${this.fighter2.name} - ${this.fighter2.life.toFixed(1)} HP`;
         let f2Pct = (this.fighter2.life / this.fighter2.maxLife) * 100;
         this.fighter2El.querySelector(".bar").style.width = `${f2Pct}%`;
+
+        if(this.fighter1.life <= 0){
+            this.fighter1El.querySelector(".name").innerHTML = `${this.fighter1.name} - ${this.fighter1.life = 0} HP`;
+            this.fighter1El.querySelector(".bar").style.width = `${f1Pct = 0}%`;
+        }
+        if(this.fighter2.life <= 0){
+            this.fighter2El.querySelector(".name").innerHTML = `${this.fighter2.name} - ${this.fighter2.life= 0} HP`;
+            this.fighter2El.querySelector(".bar").style.width = `${f2Pct = 0}%`;
+        }
     }
 
     doAttack(attacking, attacked){
-        console.log(`O ${attacking.name} está atacando ${attacked.name}`);
+        if(attacking.life <= 0 || attacked.life <= 0){
+            console.log("Atacando Cachorro Morto");
+            return;
+        }
 
+        let attackFactor = (Math.random() * 2).toFixed(2);
+        let defenseFactor = (Math.random() * 2).toFixed(2);
+
+        let actualAttack = attacking.attack * attackFactor;
+        let actualDefense = attacked.defense * defenseFactor;
+        
+        if(actualAttack > actualDefense){
+            attacked.life -= actualAttack;
+            console.log(`${attacking.name} causou ${actualAttack} em ${attacked.name}`)
+        }
+        else{
+            console.log(`${attacked.name} consegui defender...`)
+        }
+        
         this.update()
     }
-    
+
 }
