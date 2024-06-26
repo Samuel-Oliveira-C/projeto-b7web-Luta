@@ -116,6 +116,7 @@ class Stage{
         this.update()
     }
 
+    
 }
 
 class Log{
